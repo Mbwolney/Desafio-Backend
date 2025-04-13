@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -107,6 +109,7 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/auth/context")
+    @Cacheable(value = "userContextCache", key = "#authentication.name")
     public ResponseEntity<UserResponse> getUserContext(Authentication authentication) {
         String email = authentication.getName();
         User user = userRepository.findByEmail(email)
@@ -126,6 +129,7 @@ public class UserController {
     })
     @PutMapping("/users/password")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @CacheEvict(value = "userContextCache", key = "#authentication.name")
     public ResponseEntity<Void> updatePassword(@RequestBody PasswordUpdateDto passwordUpdateDto,
                                                Authentication authentication) {
         String email = authentication.getName();

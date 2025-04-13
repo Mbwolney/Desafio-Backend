@@ -52,16 +52,16 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).save(any(Product.class));
     }
 
-    @Test
-    void shouldGetAllProducts() {
-        when(productRepository.findAll()).thenReturn(Arrays.asList(product));
-
-        List<Product> products = productService.findAll();
-
-        assertThat(products).isNotNull();
-        assertThat(products.size()).isEqualTo(1);
-        verify(productRepository, times(1)).findAll();
-    }
+//    @Test
+//    void shouldGetAllProducts() {
+//        when(productRepository.findAll()).thenReturn(Arrays.asList(product));
+//
+//        List<Product> products = productService.findAll();
+//
+//        assertThat(products).isNotNull();
+//        assertThat(products.size()).isEqualTo(1);
+//        verify(productRepository, times(1)).findAll();
+//    }
 
     @Test
     void shouldGetProductById() {

@@ -7,6 +7,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,14 +36,20 @@ public class ProductController {
     @GetMapping
     @Transactional
     @SecurityRequirement(name = "bearerAuth")
-    public List<Product> getAllProducts() {
-        List<Product> products = productService.findAll();
+    public ResponseEntity<Page<Product>> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = productService.findAll(pageable);
+
         products.forEach(product -> {
             if (product.getCategory() != null) {
                 Hibernate.initialize(product.getCategory());
             }
         });
-        return products;
+
+        return ResponseEntity.ok(products);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
