@@ -106,6 +106,17 @@ public class UserController {
         return ResponseEntity.ok(new LoginResponse(token));
     }
 
+    @Operation(summary = "Registrar novo usuário", description = "Endpoint para registrar um novo usuário. Requer permissão ADMIN.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuário registrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos no corpo da requisição",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(example = "{\"name\": \"não deve estar em branco\"}"))),
+            @ApiResponse(responseCode = "403", description = "Token JWT ausente ou inválido"),
+            @ApiResponse(responseCode = "500", description = "Erro interno",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Erro interno no servido\"}")))
+    })
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/auth/register")
     public ResponseEntity<Void> register(@RequestBody CreateUserDto createUserDto) {
@@ -122,9 +133,18 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Buscar contexto do usuário logado", description = "Retorna as informações básicas do usuário autenticado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contexto do usuário retornado com sucesso",
+                    content = @Content(schema = @Schema(implementation = UserResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Token JWT ausente ou inválido"),
+            @ApiResponse(responseCode = "500", description = "Erro interno",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Erro interno no servido\"}")))
+    })
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/auth/context")
-    @Cacheable(value = "userContextCache", key = "#authentication.name")
+//    @Cacheable(value = "userContextCache", key = "#authentication.name")
     public ResponseEntity<UserResponse> getUserContext(Authentication authentication) {
         String email = authentication.getName();
         logger.info("[UserController:getUserContext] Buscando contexto do usuário: {}", email);
@@ -144,12 +164,14 @@ public class UserController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso"),
-            @ApiResponse(responseCode = "401", description = "Token inválido ou não enviado"),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+            @ApiResponse(responseCode = "403", description = "Token inválido ou não enviado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Erro interno no servido\"}")))
     })
     @PutMapping("/users/password")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @CacheEvict(value = "userContextCache", key = "#authentication.name")
+//    @CacheEvict(value = "userContextCache", key = "#authentication.name")
     public ResponseEntity<Void> updatePassword(@RequestBody PasswordUpdateDto passwordUpdateDto,
                                                Authentication authentication) {
         String email = authentication.getName();

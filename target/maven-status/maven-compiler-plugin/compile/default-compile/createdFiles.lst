@@ -1,10 +1,10 @@
 com\simplesdental\product\dto\PasswordUpdateDto.class
 com\simplesdental\product\security\auth\JwtAccessDeniedHandler.class
 com\simplesdental\product\dto\CreateUserDto.class
+com\simplesdental\product\exceptions\GlobalExceptionHandler.class
 com\simplesdental\product\controller\ProductController.class
 com\simplesdental\product\model\Product.class
 com\simplesdental\product\config\JacksonConfig.class
-com\simplesdental\product\config\OpenApiConfig.class
 com\simplesdental\product\security\auth\JwtFilter.class
 com\simplesdental\product\controller\CategoryController.class
 com\simplesdental\product\model\Category.class

@@ -1,5 +1,4 @@
 C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\service\UserService.java
-C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\config\OpenApiConfig.java
 C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\dto\CreateUserDto.java
 C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\repository\UserRepository.java
 C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\controller\CategoryController.java
@@ -24,3 +23,4 @@ C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdenta
 C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\model\User.java
 C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\model\Category.java
 C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\dto\LoginRequest.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\main\java\com\simplesdental\product\exceptions\GlobalExceptionHandler.java
