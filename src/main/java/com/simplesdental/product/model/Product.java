@@ -34,7 +34,7 @@ public class Product {
     @NotNull
     private Boolean status;
 
-    private int code;
+    private String code;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -82,11 +82,11 @@ public class Product {
         this.status = status;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

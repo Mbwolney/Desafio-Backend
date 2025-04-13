@@ -1,12 +1,14 @@
 package com.simplesdental.product.dto;
 
+import com.simplesdental.product.enumType.Role;
+
 public class UserResponse {
 
     private Long id;
     private String email;
-    private String role;
+    private Role role;
 
-    public UserResponse(Long id, String email, String role) {
+    public UserResponse(Long id, String email, Role role) {
         this.id = id;
         this.email = email;
         this.role = role;
@@ -28,11 +30,11 @@ public class UserResponse {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

@@ -41,9 +41,10 @@ CREATE TABLE users (
     name        VARCHAR(100) NOT NULL,
     email       VARCHAR(150) NOT NULL UNIQUE,
     password    VARCHAR(255) NOT NULL,
-    role        VARCHAR(10) NOT NULL CHECK (role IN ('admin', 'user'))
+    role        VARCHAR(10) NOT NULL CHECK (ROLE IN ('ADMIN', 'USER'))
 );
 
 -- Inserir o usuário admin
 INSERT INTO users (name, email, password, role)
-VALUES ('Administrador', 'contato@simplesdental.com', 'KMbT%5wT*R!46i@@YHqx', 'admin');
+VALUES ('Administrador', 'contato@simplesdental.com', 'KMbT%5wT*R!46i@@YHqx', 'ADMIN');
+

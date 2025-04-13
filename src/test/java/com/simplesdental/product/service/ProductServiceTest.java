@@ -37,7 +37,7 @@ public class ProductServiceTest {
         product.setDescription("Test Description");
         product.setPrice(new BigDecimal("19.99"));
         product.setStatus(true);
-        product.setCode(001);
+        product.setCode("001");
     }
 
     @Test

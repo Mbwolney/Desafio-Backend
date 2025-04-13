@@ -6,10 +6,23 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 
 @Entity
 @Table(name = "Users")
+@Builder
 public class User {
+
+    public User(Long id, String name, String email, String password, Role role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +42,6 @@ public class User {
     @NotNull(message = "O papel (role) é obrigatório")
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
     public Long getId() {
         return id;
