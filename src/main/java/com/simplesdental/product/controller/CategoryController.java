@@ -22,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Tag(name = "Categorias", description = "Operações das Categorias")
 @RestController
@@ -51,20 +50,23 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<Page<Category>> getAllCategories(
             @PageableDefault(size = 10, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
+        logger.info("[CategoryController:getAllCategories] Buscando todas as categorias - Página: {}, Tamanho: {}", pageable.getPageNumber(), pageable.getPageSize());
         Page<Category> categories = categoryService.findAll(pageable);
+        logger.debug("[CategoryController:getAllCategories] Total de categorias encontradas: {}", categories.getTotalElements());
         return ResponseEntity.ok(categories);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
+        logger.info("[CategoryController:getCategoryById] Buscando categoria com ID: {}", id);
         return categoryService.findById(id)
                 .map(category -> {
-                    logger.info("[CategoryController:getCategoryById] Searching for category with id {}", id);
+                    logger.debug("[CategoryController:getCategoryById] Categoria encontrada: {}", category.getName());
                     return ResponseEntity.ok(category);
                 })
                 .orElseGet(() -> {
-                    logger.error("[CategoryController:getCategoryById] Category with id {} not found", id);
+                    logger.warn("[CategoryController:getCategoryById] Categoria com ID {} não encontrada", id);
                     return ResponseEntity.notFound().build();
                 });
     }
@@ -73,28 +75,43 @@ public class CategoryController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Category createCategory(@Valid @RequestBody Category category) {
-        return categoryService.save(category);
+        logger.info("[CategoryController:createCategory] Criando nova categoria: {}", category.getName());
+        Category savedCategory = categoryService.save(category);
+        logger.debug("[CategoryController:createCategory] Categoria criada com ID: {}", savedCategory.getId());
+        return savedCategory;
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable Long id, @Valid @RequestBody Category category) {
+        logger.info("[CategoryController:updateCategory] Atualizando categoria com ID: {}", id);
         return categoryService.findById(id)
                 .map(existingCategory -> {
                     category.setId(id);
-                    return ResponseEntity.ok(categoryService.save(category));
+                    Category updated = categoryService.save(category);
+                    logger.debug("[CategoryController:updateCategory] Categoria atualizada: {}", updated.getName());
+                    return ResponseEntity.ok(updated);
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> {
+                    logger.warn("[CategoryController:updateCategory] Categoria com ID {} não encontrada para atualização", id);
+                    return ResponseEntity.notFound().build();
+                });
     }
+
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+        logger.info("[CategoryController:deleteCategory] Excluindo categoria com ID: {}", id);
         return categoryService.findById(id)
                 .map(category -> {
                     categoryService.deleteById(id);
+                    logger.debug("[CategoryController:deleteCategory] Categoria com ID {} excluída", id);
                     return ResponseEntity.noContent().<Void>build();
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> {
+                    logger.warn("[CategoryController:deleteCategory] Categoria com ID {} não encontrada para exclusão", id);
+                    return ResponseEntity.notFound().build();
+                });
     }
 }

@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping()
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -79,10 +83,16 @@ public class UserController {
                     )
             )
             @RequestBody LoginRequest loginRequest) {
+        logger.info("[UserController:login] Tentativa de login para o e-mail {}", loginRequest.getEmail());
+
         User user = userRepository.findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> {
+                    logger.error("[UserController:login] Usuário com e-mail {} não encontrado", loginRequest.getEmail());
+                    return new RuntimeException("Usuário não encontrado");
+                });
 
         if (!(loginRequest.getPassword().equals(user.getPassword()))) {
+            logger.warn("[UserController:login] Senha inválida para o usuário {}", loginRequest.getEmail());
             return ResponseEntity.status(401).body("Senha inválida");
         }
 
@@ -91,12 +101,16 @@ public class UserController {
                 user.getEmail(),
                 user.getRole().name()
         );
+
+        logger.info("[UserController:login] Login realizado com sucesso para {}", loginRequest.getEmail());
         return ResponseEntity.ok(new LoginResponse(token));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/auth/register")
     public ResponseEntity<Void> register(@RequestBody CreateUserDto createUserDto) {
+        logger.info("[UserController:register] Registrando novo usuário: {}", createUserDto.email());
+
         User user = User.builder()
                 .name(createUserDto.name())
                 .email(createUserDto.email())
@@ -104,6 +118,7 @@ public class UserController {
                 .role(createUserDto.role())
                 .build();
         userRepository.save(user);
+        logger.info("[UserController:register] Usuário registrado com sucesso: {}", createUserDto.email());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -112,9 +127,14 @@ public class UserController {
     @Cacheable(value = "userContextCache", key = "#authentication.name")
     public ResponseEntity<UserResponse> getUserContext(Authentication authentication) {
         String email = authentication.getName();
+        logger.info("[UserController:getUserContext] Buscando contexto do usuário: {}", email);
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() -> {
+                    logger.error("[UserController:getUserContext] Usuário com e-mail {} não encontrado", email);
+                    return new UsernameNotFoundException("Usuário não encontrado");
+                });
 
+        logger.debug("[UserController:getUserContext] Contexto carregado para usuário: {}", email);
         return ResponseEntity.ok(new UserResponse(user.getId(), user.getEmail(), user.getRole()));
     }
 
@@ -133,11 +153,17 @@ public class UserController {
     public ResponseEntity<Void> updatePassword(@RequestBody PasswordUpdateDto passwordUpdateDto,
                                                Authentication authentication) {
         String email = authentication.getName();
+        logger.info("[UserController:updatePassword] Atualizando senha do usuário: {}", email);
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() -> {
+                    logger.error("[UserController:updatePassword] Usuário com e-mail {} não encontrado", email);
+                    return new UsernameNotFoundException("Usuário não encontrado");
+                });
 
         user.setPassword(passwordUpdateDto.newPassword());
         userRepository.save(user);
+
+        logger.info("[UserController:updatePassword] Senha atualizada com sucesso para {}", email);
         return ResponseEntity.noContent().build();
     }
 }
