@@ -23,6 +23,17 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
+CREATE TABLE product_v2 (
+    id          BIGSERIAL    PRIMARY KEY,
+    name        VARCHAR(100) NOT NULL CHECK (char_length(name) > 0),
+    description VARCHAR(255),
+    price       DECIMAL(10, 2) NOT NULL CHECK (price > 0),
+    status      BOOLEAN NOT NULL,
+    code        INTEGER,
+    category_id BIGINT,
+    FOREIGN KEY (category_id) REFERENCES categories (id)
+);
+
 -- Inserir produtos
 INSERT INTO products (name, description, price, status, code, category_id) VALUES 
 ('Smartphone XYZ', 'Smartphone com 8GB RAM e 128GB de armazenamento', 1299.99, true, 'PROD-001', 3),

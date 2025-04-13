@@ -1,21 +1,18 @@
-package com.simplesdental.product.model;
+package com.simplesdental.product.model.v2;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.*;
+import com.simplesdental.product.model.Category;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "product_v2")
+public class ProductV2 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +31,7 @@ public class Product {
     @NotNull
     private Boolean status;
 
-    private String code;
+    private Integer code;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -82,11 +79,11 @@ public class Product {
         this.status = status;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

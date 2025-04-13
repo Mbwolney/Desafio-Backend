@@ -1,7 +1,7 @@
-package com.simplesdental.product.controller;
+package com.simplesdental.product.controller.v2;
 
-import com.simplesdental.product.model.Product;
-import com.simplesdental.product.service.ProductService;
+import com.simplesdental.product.model.v2.ProductV2;
+import com.simplesdental.product.service.v2.ProductServiceV2;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
@@ -25,15 +26,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/products")
-public class ProductController {
+@RequestMapping("/api/v2/products")
+@Tag(name = "Produtos v2", description = "API versão 2 - Código em formato numérico")
+public class ProductControllerV2 {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductControllerV2.class);
 
-    private final ProductService productService;
+    private final ProductServiceV2 productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductControllerV2(ProductServiceV2 productService) {
         this.productService = productService;
     }
 
@@ -41,7 +43,7 @@ public class ProductController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de produtos retornada com sucesso",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Product.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = ProductV2.class)))),
             @ApiResponse(responseCode = "403", description = "Token JWT ausente ou inválido", content = @Content(
                     mediaType = "application/json",
                     schema = @Schema(),
@@ -52,13 +54,13 @@ public class ProductController {
     @GetMapping
     @Transactional
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<Page<Product>> getAllProducts(
+    public ResponseEntity<Page<ProductV2>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         logger.info("[ProductController:getAllProducts] Listando produtos - page={}, size={}", page, size);
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<Product> products = productService.findAll(pageable);
+        Page<ProductV2> products = productService.findAll(pageable);
 
         products.forEach(product -> {
             if (product.getCategory() != null) {
@@ -74,7 +76,7 @@ public class ProductController {
     @Operation(summary = "Buscar produto por ID", description = "Retorna um produto pelo ID fornecido.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto encontrado",
-                    content = @Content(schema = @Schema(implementation = Product.class))),
+                    content = @Content(schema = @Schema(implementation = ProductV2.class))),
             @ApiResponse(
                     responseCode = "403",
                     description = "Token JWT ausente ou inválido",
@@ -97,7 +99,7 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+    public ResponseEntity<ProductV2> getProductById(@PathVariable Long id) {
         logger.info("[ProductController:getProductById] Buscando produto com id={}", id);
 
         return productService.findById(id)
@@ -117,7 +119,7 @@ public class ProductController {
     @Operation(summary = "Criar novo produto", description = "Cria um novo produto. Requer autenticação e perfil ADMIN.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Produto criado com sucesso",
-                    content = @Content(schema = @Schema(implementation = Product.class))),
+                    content = @Content(schema = @Schema(implementation = ProductV2.class))),
             @ApiResponse(responseCode = "400", description = "Dados inválidos enviados",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(example = "{\"name\": \"não deve estar em branco\"}"))),
@@ -132,7 +134,7 @@ public class ProductController {
     @PostMapping
     @SecurityRequirement(name = "bearerAuth")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product createProduct(@Valid @RequestBody Product product) {
+    public ProductV2 createProduct(@Valid @RequestBody ProductV2 product) {
         logger.info("[ProductController:createProduct] Criando novo produto: {}", product.getName());
         return productService.save(product);
     }
@@ -140,7 +142,7 @@ public class ProductController {
     @Operation(summary = "Atualizar produto", description = "Atualiza os dados de um produto existente.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto atualizado com sucesso",
-                    content = @Content(schema = @Schema(implementation = Product.class))),
+                    content = @Content(schema = @Schema(implementation = ProductV2.class))),
             @ApiResponse(responseCode = "400", description = "Dados inválidos enviados",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(example = "{\"name\": \"não deve estar em branco\"}"))),
@@ -163,7 +165,7 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product) {
+    public ResponseEntity<ProductV2> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductV2 product) {
         logger.info("[ProductController:updateProduct] Atualizando produto id={}", id);
 
         return productService.findById(id)

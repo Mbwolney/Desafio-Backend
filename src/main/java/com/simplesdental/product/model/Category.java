@@ -1,6 +1,7 @@
 package com.simplesdental.product.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.simplesdental.product.model.v1.ProductV1;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     @JsonIgnoreProperties({"category"})
-    private List<Product> products;
+    private List<ProductV1> products;
 
     public Long getId() {
         return id;
@@ -59,11 +60,11 @@ public class Category {
         this.description = description;
     }
 
-    public List<Product> getProducts() {
+    public List<ProductV1> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductV1> products) {
         this.products = products;
     }
 }
