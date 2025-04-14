@@ -1,0 +1,705 @@
+{
+	"info": {
+		"_postman_id": "97bc3c6c-fe03-43c3-a1d9-53b8e8d4f253",
+		"name": "Desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10529092"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU1MzAzMCwiZXhwIjoxNzQ0NjM5NDMwfQ.REKCgJmnYuSZT_IUC6jcIGJsvU7yKrdrhLxyLcwoMeQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Computador 40\",\r\n    \"description\":\"Modelo Dell\",\r\n    \"price\":8.000,\r\n    \"status\":true,\r\n    \"code\":1,\r\n    \"category\": {\r\n        \"id\": 1,\r\n        \"name\": \"Eletrônicos\",\r\n        \"description\": \"Produtos eletrônicos e gadgets\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU1NDczNCwiZXhwIjoxNzQ0NjQxMTM0fQ.Ne8ZyaEXXsBQjWc8Z7h1t8BSPWP5DyL1vTHjdJwz-yU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Modelo ACER 1\",\r\n    \"price\":8.000,\r\n    \"status\":true,\r\n    \"code\":1,\r\n    \"category\": {\r\n        \"id\": 1,\r\n        \"name\": \"Novo Eletrônicos\",\r\n        \"description\": \"Produtos eletrônicos e gadgets\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST PRODUCTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU4NjMwOCwiZXhwIjoxNzQ0NjcyNzA4fQ.eATVBPBAe_u-ZWGQsg7D5UgjS2zqvGt_aC-jhQrSP2w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST PRODUCTS ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3MDQyOSwiZXhwIjoxNzQ0NjU2ODI5fQ.-M9VPvyJUOxhwaIG8LGaZzEbxUVSEaUUEzUlE3zJUMg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU1NTUxNiwiZXhwIjoxNzQ0NjQxOTE2fQ.i6DbXp_jTmuRqe4MahzKXqtpiiuu3s3rxRmq3Z3UxZA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "LIST CATEGORY",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU4NjMwOCwiZXhwIjoxNzQ0NjcyNzA4fQ.eATVBPBAe_u-ZWGQsg7D5UgjS2zqvGt_aC-jhQrSP2w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST CATEGORY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0aGFpc0B0ZXN0ZS5jb20iLCJpZCI6NCwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NDQ1NTU2MTksImV4cCI6MTc0NDY0MjAxOX0.lwRw65Aau6uX2ycE6j9G2F8xyx3e1zWOvK8a3DMOFnQ\"",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3MDQyOSwiZXhwIjoxNzQ0NjU2ODI5fQ.-M9VPvyJUOxhwaIG8LGaZzEbxUVSEaUUEzUlE3zJUMg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"S24+\",\r\n    \"description\": \"Marca Samsaung plus\",\r\n    \"products\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Smartphone XYZ\",\r\n            \"description\": \"Smartphone com 8GB RAM e 128GB de armazenamento\",\r\n            \"price\": 1299.99,\r\n            \"status\": true,\r\n            \"code\": \"PROD-001\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Smartphone XYZ\",\r\n            \"description\": \"Smartphone com 8GB RAM e 128GB de armazenamento\",\r\n            \"price\": 1299.99,\r\n            \"status\": true,\r\n            \"code\": \"PROD-001\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU1NjAwMywiZXhwIjoxNzQ0NjQyNDAzfQ.GdaeP2S3QDWU5f4fjogEai18ymZivzG58Yvv2qfszh0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"S24\",\r\n    \"description\": \"Marca Samsung\",\r\n    \"products\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Smartphone XYZ\",\r\n            \"description\": \"Smartphone com 8GB RAM e 128GB de armazenamento\",\r\n            \"price\": 1299.99,\r\n            \"status\": true,\r\n            \"code\": \"PROD-001\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Smartphone XYZ\",\r\n            \"description\": \"Smartphone com 8GB RAM e 128GB de armazenamento\",\r\n            \"price\": 1299.99,\r\n            \"status\": true,\r\n            \"code\": \"PROD-001\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU1NjU3NiwiZXhwIjoxNzQ0NjQyOTc2fQ.i3nZn1K4PF22gsFSMO3VZAtFLWFoGbZYkLBfGH6fqPg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "CREATE USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3MjYxOSwiZXhwIjoxNzQ0NjU5MDE5fQ.0s2QzymYCJCa4GAMF3TwSzuHeHJ5cT12UnGcwriYAuI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Davi\",\r\n    \"email\":\"davi@teste.com\",\r\n    \"password\":\"KMbT%5wT*R!46i@@YHqx\",\r\n    \"role\":\"USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"contato@simplesdental.com\",\r\n    \"password\":\"KMbT%5wT*R!46i@@YHqx\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CONTEXT",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU4NjMwOCwiZXhwIjoxNzQ0NjcyNzA4fQ.eATVBPBAe_u-ZWGQsg7D5UgjS2zqvGt_aC-jhQrSP2w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"contato@simplesdental.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/context",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"context"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PASSWORD",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3MjI1NCwiZXhwIjoxNzQ0NjU4NjU0fQ.SbWsNWFLvgwM-VhIZ5vSYSbar2vaKAE2DLyugE5iNqY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\":\"TesteDaNovaSenha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products_V2",
+			"item": [
+				{
+					"name": "LIST PRODUCTS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3NTE5NSwiZXhwIjoxNzQ0NjYxNTk1fQ.Jh24mjYpNcswfRcITId2fHETuAEjoS0y3SN-Q92MMRI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v2/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST PRODUCTS ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v2/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3NTE5NSwiZXhwIjoxNzQ0NjYxNTk1fQ.Jh24mjYpNcswfRcITId2fHETuAEjoS0y3SN-Q92MMRI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Computador 40\",\r\n    \"description\":\"Modelo Dell\",\r\n    \"price\":8.000,\r\n    \"status\":true,\r\n    \"code\":1,\r\n    \"category\": {\r\n        \"id\": 1,\r\n        \"name\": \"Eletrônicos\",\r\n        \"description\": \"Produtos eletrônicos e gadgets\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v2/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3NTE5NSwiZXhwIjoxNzQ0NjYxNTk1fQ.Jh24mjYpNcswfRcITId2fHETuAEjoS0y3SN-Q92MMRI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Computador\",\r\n    \"description\":\"Modelo Dell\",\r\n    \"price\":8.000,\r\n    \"status\":true,\r\n    \"code\":1,\r\n    \"category\": {\r\n        \"id\": 1,\r\n        \"name\": \"Eletrônicos\",\r\n        \"description\": \"Produtos eletrônicos e gadgets\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v2/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb250YXRvQHNpbXBsZXNkZW50YWwuY29tIiwiaWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0NDU3NTE5NSwiZXhwIjoxNzQ0NjYxNTk1fQ.Jh24mjYpNcswfRcITId2fHETuAEjoS0y3SN-Q92MMRI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v2/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -63,18 +63,50 @@ Você deve ajustar as entidades (model e sql) de acordo com as regras abaixo:
 ## 8. Testes
 - Desenvolver testes unitários para os módulos de autenticação, autorização e operações CRUD.
 
+
+## 🧪 Testes com Postman
+
+Importe a collection abaixo no Postman:
+
+📁 [Download da Collection](src/main/java/com/simplesdental/product/docs/Desafio.postman_collection.json)
+
+## Swagger
+
+Link -> http://localhost:8080/swagger-ui/index.html#/Produtos%20v2
+
 ---
 
 # Perguntas
 
 1. **Se tivesse a oportunidade de criar o projeto do zero ou refatorar o projeto atual, qual arquitetura você utilizaria e por quê?**
+   Optaria por uma arquitetura baseada em microservices e micro frontends, principalmente pensando em escalabilidade, manutenção e autonomia das equipes.
+Com os microservices, cada serviço pode evoluir de forma independente, o que facilita bastante a organização do código e dos times.
+Já no front, os micro frontends complementam bem esse modelo, permitindo que diferentes equipes entreguem partes da interface de forma isolada, sem depender de uma única aplicação monolítica.
 2. **Qual é a melhor estratégia para garantir a escalabilidade do código mantendo o projeto organizado?**  
+   Para garantir melhor estratégica seria o DDD (Domain-Driven Design), dividindo o projeto em camadas claras (como controller, service, repository) ou até mesmo em módulos ou serviços independentes, dependendo do tamanho da aplicação.
 3. **Quais estratégias poderiam ser utilizadas para implementar multitenancy no projeto?**
-4. **Como garantir a resiliência e alta disponibilidade da API durante picos de tráfego e falhas de componentes?**
+   Se eu fosse implementar multitenancy, eu começaria entendendo o nível de isolamento necessário. Pra algo mais simples, dá pra usar um banco único com um campo tenant_id, que já resolve bem e é fácil de manter. Agora, se cada cliente precisar de mais segurança ou separação, aí vale usar um schema por tenant, ou até um banco por tenant, dependendo da complexidade.
+O mais importante é ter uma forma de identificar o tenant por request — tipo pelo subdomínio, um header ou no próprio token JWT — e garantir que isso seja carregado certinho no contexto da aplicação. Costumo usar um filtro pra capturar o tenant no início da request e deixar disponível pro resto da lógica. E se o projeto tiver frontend, pode ser legal permitir customizações por tenant também, tipo logo, cores, permissões.
+   4. **Como garantir a resiliência e alta disponibilidade da API durante picos de tráfego e falhas de componentes?**
+    Escalar horizontalmente com instâncias atrás de um balanceador de carga, como o do Kubernetes ou algum gateway. Isso ajuda muito em picos de tráfego.
+    Cache também ajuda bastante, principalmente em dados que não mudam o tempo todo. E monitoramento pelos logs.
 5. **Quais práticas de segurança essenciais você implementaria para prevenir vulnerabilidades como injeção de SQL e XSS?**
+   Pra garantir segurança na aplicação, sigo algumas práticas essenciais:
+SQL Injection: Sempre uso ORM como JPA ou Hibernate, que já trata isso internamente. E quando preciso de queries personalizadas, uso @Query com parâmetros nomeados.
+XSS: Valido e escapo todos os inputs, principalmente os que vão pro front. Também uso sanitizadores quando necessário.
+Configurações adicionais: Mantenho o CORS bem configurado, ativo o CSRF no Spring Security quando necessário, e aplico validações com Bean Validation (@NotBlank, @Size, etc).
+Autenticação e autorização: Uso JWT, defino bem as roles dos usuários e protejo os endpoints com base nesses perfis.
 5. **Qual a abordagem mais eficaz para estruturar o tratamento de exceções de negócio, garantindo um fluxo contínuo desde sua ocorrência até o retorno da API?**
+   No ControllerAdvice, trato essas exceções e retorno um JSON com código de status, mensagem e até um timestamp, se necessário.
 5. **Considerando uma aplicação composta por múltiplos serviços, quais componentes você considera essenciais para assegurar sua robustez e eficiência?**
+   Primeiro, a comunicação entre os serviços: pode ser síncrona com REST ou assíncrona usando mensageria, como RabbitMQ, dependendo do cenário e da necessidade de desempenho.
+Também acho essencial ter monitoramento com ferramentas como Grafana e logs estruturados, pra facilitar o rastreio e a análise de problemas.
+Na parte de segurança, autenticação com OAuth ajuda a centralizar o controle de acesso de forma segura.
+E claro, o uso de APIs bem definidas, com cache inteligente, além de um API Gateway, que centraliza o tráfego e facilita o roteamento, autenticação e rate limiting."
 6. **Como você estruturaria uma pipeline de CI/CD para automação de testes e deploy, assegurando entregas contínuas e confiáveis?**
+   Eu começaria rodando os testes unitários e de integração logo de cara, pra garantir que o código novo não quebrou nada. Depois, passaria pelo SonarQube, que ajuda a checar cobertura de testes, code smells e possíveis vulnerabilidades.
+Se estiver tudo certo, empacoto a aplicação e envio pro repositório de artefatos, tipo um Nexus. A partir daí, faço o deploy no ambiente de homologação, onde o time de QA pode validar tudo com calma.
+Depois da aprovação, a gente libera o deploy pra produção. E, claro, tudo isso com monitoramento ativo, usando ferramentas como Grafana, análise de logs estruturados e alertas configurados pra manter o sistema estável e confiável
 
 Obs: Forneça apenas respostas textuais; não é necessário implementar as perguntas acima.
 

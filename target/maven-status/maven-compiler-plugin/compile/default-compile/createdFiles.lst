@@ -19,7 +19,6 @@ com\simplesdental\product\ProductApplication.class
 com\simplesdental\product\controller\v1\ProductControllerV1.class
 com\simplesdental\product\repository\UserRepository.class
 com\simplesdental\product\dto\LoginResponse.class
-com\simplesdental\product\service\UserService.class
 com\simplesdental\product\security\auth\JwtAuthenticationEntryPoint.class
 com\simplesdental\product\security\config\SecurityConfiguration.class
 com\simplesdental\product\model\User$UserBuilder.class

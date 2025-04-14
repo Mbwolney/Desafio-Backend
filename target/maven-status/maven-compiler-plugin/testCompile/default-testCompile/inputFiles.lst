@@ -1,2 +1,7 @@
-C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\controller\ProductControllerTest.java
-C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\service\ProductServiceTest.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\service\v2\ProductServiceV2Test.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\controller\v2\ProductControllerV2Test.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\controller\UserControllerTest.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\service\v1\ProductServiceV1Test.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\controller\v1\ProductControllerV1Test.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\controller\CategoryControllerTest.java
+C:\Users\matheus.wolney\Documents\desafio-backend\src\test\java\com\simplesdental\product\service\CategoryServiceTest.java

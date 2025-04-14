@@ -21,6 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -88,7 +89,8 @@ public class UserController {
         User user = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> {
                     logger.error("[UserController:login] Usuário com e-mail {} não encontrado", loginRequest.getEmail());
-                    return new RuntimeException("Usuário não encontrado");
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado");
+
                 });
 
         if (!(loginRequest.getPassword().equals(user.getPassword()))) {
